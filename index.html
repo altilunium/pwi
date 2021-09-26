@@ -24,7 +24,7 @@
     </body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script>
-        fetch("https://id.wikipedia.org/w/api.php?action=query&list=recentchanges&rctype=edit&rcprop=timestamp%7Ctitle%7Cids%7Csizes%7Cflags%7Cuser&rclimit=500&format=json&origin=*")
+        fetch("https://id.wikipedia.org/w/api.php?action=query&list=recentchanges&rctype=edit&rcprop=timestamp%7Ctitle%7Cids%7Csizes%7Cflags%7Cuser&rclimit=1000&format=json&origin=*")
         .then( (response) => response.json())
         .then((data) => process(data))
 
@@ -49,17 +49,22 @@
             all.sort(compare)
             
             nya.innerHTML = ""
+            var theString = ""
             all.forEach(procone)
             
 
             function procone(value,index,array){
-                var nya = document.getElementById("nya")
+                //var nya = document.getElementById("nya")
                 var dif = value.newlen - value.oldlen
                 //console.log(value)
-                nya.innerHTML += "["+ dif +"] "
-                nya.innerHTML += "<b><a href='https://id.wikipedia.org/w/index.php?curid="+value.pageid+"&diff="+value.revid+"&oldid="+value.old_revid+"'>"+ value.title + "</a></b> - "+ value.user +"  (" + moment(value.timestamp).fromNow() + ")<br>"
-                
+                //nya.innerHTML += "["+ dif +"] "
+                //nya.innerHTML += "<b><a href='https://id.wikipedia.org/w/index.php?curid="+value.pageid+"&diff="+value.revid+"&oldid="+value.old_revid+"'>"+ value.title + "</a></b> - "+ value.user +"  (" + moment(value.timestamp).fromNow() + ")<br>"
+                theString += "["+ dif +"] "
+                theString += "<b><a href='https://id.wikipedia.org/w/index.php?curid="+value.pageid+"&diff="+value.revid+"&oldid="+value.old_revid+"'>"+ value.title + "</a></b> - "+ value.user +"  (" + moment(value.timestamp).fromNow() + ")<br>"
+               
             }
+
+            nya.innerHTML = theString
 
 
            
