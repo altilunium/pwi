@@ -24,7 +24,19 @@
     </body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script>
-        fetch("https://id.wikipedia.org/w/api.php?action=query&list=recentchanges&rcshow=!bot&rctype=edit&rcprop=timestamp%7Ctitle%7Cids%7Csizes%7Cflags%7Cuser&rclimit=500&format=json&origin=*")
+
+    const params = new URLSearchParams(window.location.search);
+
+    // Get a specific query parameter (e.g., 'name')
+    var lang = params.get('lang');
+    console.log(lang)
+    if (lang === null){
+
+        lang = "id"
+    }
+    var str = "https://" + lang + ".wikipedia.org/w/api.php?action=query&list=recentchanges&rcshow=!bot&rctype=edit&rcprop=timestamp%7Ctitle%7Cids%7Csizes%7Cflags%7Cuser&rclimit=500&format=json&origin=*"
+
+        fetch(str)
         .then( (response) => response.json())
         .then((data) => process(data))
 
@@ -71,5 +83,4 @@
         }
     </script>
 </html>
-
 
